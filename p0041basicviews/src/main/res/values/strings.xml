@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BasicViews</string>
+    <string name="button">Button</string>
+    <string name="checkbox">CheckBox</string>
 </resources>
