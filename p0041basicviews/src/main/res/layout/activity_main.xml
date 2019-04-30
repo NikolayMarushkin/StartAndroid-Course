@@ -13,7 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="168dp"
         android:layout_marginEnd="8dp"
-        android:text="Google Android"
+        android:text="@string/google_android"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/checkBox"
         app:layout_constraintStart_toStartOf="@+id/button"
