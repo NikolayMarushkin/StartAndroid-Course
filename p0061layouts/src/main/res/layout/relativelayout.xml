@@ -40,4 +40,17 @@
         android:layout_below="@+id/ok"
         android:layout_centerInParent="true"/>
 
+    <include
+        android:id="@+id/news_title"
+        layout="@layout/tablelayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calendarView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="26dp" />
+
 </RelativeLayout>
