@@ -43,6 +43,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClickStart(View v){
         tvOut.setText("Нажата кнопка Start");
     }
-
-
 }
