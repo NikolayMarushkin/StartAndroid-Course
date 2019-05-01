@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
                 tvOut.setText("Нажата кнопка ОК");
             }
         };
-
         btnOk.setOnClickListener(oclBtnOk);
 
         View.OnClickListener oclBtnCancel = new View.OnClickListener() {
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
                 tvOut.setText("Нажата кнопка Cancel");
             }
         };
-
         btnCancel.setOnClickListener(oclBtnCancel);
 
     }

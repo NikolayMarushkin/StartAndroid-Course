@@ -14,14 +14,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView myTextView = (TextView) findViewById(R.id.myText);
+        TextView myTextView = findViewById(R.id.myText);
         myTextView.setText("New text in TextView");
 
-        Button myBtn = (Button) findViewById(R.id.myBtn);
+        Button myBtn = findViewById(R.id.myBtn);
         myBtn.setText("My button");
         myBtn.setEnabled(false);
 
-        CheckBox myChb = (CheckBox) findViewById(R.id.myChb);
+        CheckBox myChb = findViewById(R.id.myChb);
         myChb.setChecked(true);
     }
 }

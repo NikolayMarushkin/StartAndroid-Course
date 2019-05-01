@@ -19,6 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
         llBottom.setBackgroundResource(R.color.llBottomColor);
         tvBottom.setText(R.string.tvBottomText);
-        btnBottom.setText(getResources().getString(R.string.tvBottomText));
+        btnBottom.setText(getResources().getString(R.string.btnBottomText));
     }
 }
