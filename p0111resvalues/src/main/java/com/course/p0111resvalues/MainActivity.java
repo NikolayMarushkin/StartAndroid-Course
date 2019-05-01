@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tvBottom = findViewById(R.id.tvBottom);
         Button btnBottom = findViewById(R.id.btnBottom);
 
+
         llBottom.setBackgroundResource(R.color.llBottomColor);
         tvBottom.setText(R.string.tvBottomText);
         btnBottom.setText(getResources().getString(R.string.btnBottomText));
