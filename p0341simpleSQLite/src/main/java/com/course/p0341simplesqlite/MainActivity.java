@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnAdd, btnRead, btnClear;
-    EditText etName, etEmail;
+    Button btnAdd, btnRead, btnClear, btnUpd, btnDel;
+    EditText etName, etEmail, etID;
 
     DBHelper dbHelper;
 
@@ -33,8 +33,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnClear = findViewById(R.id.btnClear);
         btnClear.setOnClickListener(this);
 
+        btnUpd = findViewById(R.id.btnUpd);
+        btnUpd.setOnClickListener(this);
+
+        btnDel = findViewById(R.id.btnDel);
+        btnDel.setOnClickListener(this);
+
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
+        etID = findViewById(R.id.etID);
 
         // создаем объект для создания и управления версиями БД
         dbHelper = new DBHelper(this);
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // получаем данные из полей ввода
         String name = etName.getText().toString();
         String email = etEmail.getText().toString();
+        String id = etID.getText().toString();
 
         // подключаемся к БД
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -125,6 +133,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(
                         getApplicationContext(),
                         "deleted rows count = " + clearCount,
+                        Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btnUpd:
+                if (id.equalsIgnoreCase("")) {
+                    break;
+                }
+                Toast.makeText(getApplicationContext(),
+                        "--- Update mytable: ---",
+                        Toast.LENGTH_SHORT).show();
+                // подготовим значения для обновления
+                cv.put("name", name);
+                cv.put("email", email);
+                // обновляем по id
+                int updCount = db.update("mytable", cv, "id = ?",
+                        new String[] { id });
+                Toast.makeText(getApplicationContext(),
+                        "updated rows count = " + updCount,
+                        Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btnDel:
+                if (id.equalsIgnoreCase("")) {
+                    break;
+                }
+                Toast.makeText(getApplicationContext(),
+                        "--- Delete from mytable: ---",
+                        Toast.LENGTH_SHORT).show();
+                // удаляем по id (другой вариант обращение с "таблицей")
+                int delCount = db.delete("mytable", "id = " + id,
+                        null);
+                Toast.makeText(getApplicationContext(),
+                        "deleted rows count = " + delCount,
                         Toast.LENGTH_SHORT).show();
                 break;
         }
