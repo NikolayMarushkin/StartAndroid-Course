@@ -1,15 +1,17 @@
-package com.course.p0451expandablelist;
+package com.course.p0461expandablelistevents;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.ExpandableListView;
+import android.content.Context;
 import android.widget.SimpleExpandableListAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class AdapterHelper {
+
+    final String ATTR_GROUP_NAME= "groupName";
+    final String ATTR_PHONE_NAME= "phoneName";
+
 
     // названия компаний (групп)
     String[] groups = new String[] {"HTC", "Samsung", "LG"};
@@ -29,28 +31,32 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ArrayList<Map<String, String>>> childData;
     // в итоге получится childData = ArrayList<childDataItem>
 
-    // список атрибутов группы или элемента
+    // список аттрибутов группы или элемента
     Map<String, String> m;
 
-    ExpandableListView elvMain;
+    Context ctx;
+
+    AdapterHelper(Context _ctx) {
+        ctx = _ctx;
+    }
+
+    SimpleExpandableListAdapter adapter;
 
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    SimpleExpandableListAdapter getAdapter() {
 
         // заполняем коллекцию групп из массива с названиями групп
         groupData = new ArrayList<Map<String, String>>();
         for (String group : groups) {
-            // заполняем список атрибутов для каждой группы
+            // заполняем список аттрибутов для каждой группы
             m = new HashMap<String, String>();
-            m.put("groupName", group); // имя компании
+            m.put(ATTR_GROUP_NAME, group); // имя компании
             groupData.add(m);
         }
 
-        // список атрибутов групп для чтения
-        String groupFrom[] = new String[] {"groupName"};
-        // список ID view-элементов, в которые будут помещены атрибуты групп
+        // список аттрибутов групп для чтения
+        String groupFrom[] = new String[] {ATTR_GROUP_NAME};
+        // список ID view-элементов, в которые будет помещены аттрибуты групп
         int groupTo[] = new int[] {android.R.id.text1};
 
 
@@ -59,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
         // создаем коллекцию элементов для первой группы
         childDataItem = new ArrayList<Map<String, String>>();
-        // заполняем список атрибутов для каждого элемента
+        // заполняем список аттрибутов для каждого элемента
         for (String phone : phonesHTC) {
             m = new HashMap<String, String>();
-            m.put("phoneName", phone); // название телефона
+            m.put(ATTR_PHONE_NAME, phone); // название телефона
             childDataItem.add(m);
         }
         // добавляем в коллекцию коллекций
@@ -72,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         childDataItem = new ArrayList<Map<String, String>>();
         for (String phone : phonesSams) {
             m = new HashMap<String, String>();
-            m.put("phoneName", phone);
+            m.put(ATTR_PHONE_NAME, phone);
             childDataItem.add(m);
         }
         childData.add(childDataItem);
@@ -81,18 +87,18 @@ public class MainActivity extends AppCompatActivity {
         childDataItem = new ArrayList<Map<String, String>>();
         for (String phone : phonesLG) {
             m = new HashMap<String, String>();
-            m.put("phoneName", phone);
+            m.put(ATTR_PHONE_NAME, phone);
             childDataItem.add(m);
         }
         childData.add(childDataItem);
 
-        // список атрибутов элементов для чтения
-        String childFrom[] = new String[] {"phoneName"};
-        // список ID view-элементов, в которые будет помещены атрибуты элементов
+        // список аттрибутов элементов для чтения
+        String childFrom[] = new String[] {ATTR_PHONE_NAME};
+        // список ID view-элементов, в которые будет помещены аттрибуты элементов
         int childTo[] = new int[] {android.R.id.text1};
 
-        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(
-                this,
+        adapter = new SimpleExpandableListAdapter(
+                ctx,
                 groupData,
                 android.R.layout.simple_expandable_list_item_1,
                 groupFrom,
@@ -102,7 +108,18 @@ public class MainActivity extends AppCompatActivity {
                 childFrom,
                 childTo);
 
-        elvMain = findViewById(R.id.elvMain);
-        elvMain.setAdapter(adapter);
+        return adapter;
+    }
+
+    String getGroupText(int groupPos) {
+        return ((Map<String,String>)(adapter.getGroup(groupPos))).get(ATTR_GROUP_NAME);
+    }
+
+    String getChildText(int groupPos, int childPos) {
+        return ((Map<String,String>)(adapter.getChild(groupPos, childPos))).get(ATTR_PHONE_NAME);
+    }
+
+    String getGroupChildText(int groupPos, int childPos) {
+        return getGroupText(groupPos) + " " +  getChildText(groupPos, childPos);
     }
 }
