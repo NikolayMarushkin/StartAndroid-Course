@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // разворачиваем группу с позицией 2
+        // разворачиваем группу с позицией: 2
         elvMain.expandGroup(1);
     }
 }
