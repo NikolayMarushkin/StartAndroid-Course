@@ -7,57 +7,44 @@ import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    // имена аттрибутов для мап
-    final String ATTRIBUTE_NAME_TEXT = "text";
-    final String ATTRIBUTE_NAME_TEXT1 = "text1";
-    final String ATTRIBUTE_NAME_CHECKED = "checked";
-    final String ATTRIBUTE_NAME_IMAGE = "image";
-
-    ListView listView;
-
+    private ListView mListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mListView = findViewById(R.id.list);
 
-        // массивы данных
-        String[] texts = {"sometext 1", "sometext 2", "sometext 3", "sometext 4", "sometext 5" };
-        boolean[] checked = {true, false, true, false, false};
-        int[] img = {R.drawable.ic_android_black_24dp,
-                R.drawable.ic_announcement_black_24dp,
-                R.drawable.ic_apps_black_24dp,
-                R.drawable.ic_archive_black_24dp,
-                R.drawable.ic_arrow_back_black_24dp};
+        List<Map<String, Object>> data = GetSampleData();
 
-        String[] textChecked = {"Один", "Два", "Три", "Четыре", "Пять" };
 
-        // упаковка данных в понятную для адаптера структуру
-        ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>> (texts.length);
-        Map<String, Object> m;
+        SimpleAdapter adapter = new SimpleAdapter(
+                this, data, R.layout.item,
+                new String[] { "userIcon", "username", "usertext" },  new int[] { R.id.userIcon, R.id.username, R.id.usertext });
 
-        for (int i = 0; i < texts.length; i++) {
-            m = new HashMap<String, Object>();
-            m.put(ATTRIBUTE_NAME_TEXT, texts[i]);
-            m.put(ATTRIBUTE_NAME_TEXT1, textChecked[i]);
-            m.put(ATTRIBUTE_NAME_CHECKED, checked[i]);
-            m.put(ATTRIBUTE_NAME_IMAGE, img[i]);
-            data.add(m);
-        }
+        mListView.setAdapter(adapter);
+    }
 
-        // массив имен аттрибутов, из которых будут читаться данные
-        String[] from = {ATTRIBUTE_NAME_TEXT, ATTRIBUTE_NAME_CHECKED, ATTRIBUTE_NAME_IMAGE, ATTRIBUTE_NAME_TEXT1};
-        // массив ID view компоненков, в которые будут вставляться данные
-        int[] to = {R.id.tvText, R.id.cbChecked, R.id.ivImg, R.id.cbChecked};
+    List<Map<String, Object>> GetSampleData()
+    {
+        List<Map<String, Object>> list = new ArrayList<>();
 
-        // создаем адаптер
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, data, R.layout.item, from, to);
+        Map map = new HashMap();
+        map.put("userIcon", R.drawable.ic_android_black_24dp);
+        map.put("username", "Shen");
+        map.put("usertext", "This is a simple sample for SimpleAdapter");
+        list.add(map);
+        map = new HashMap();
+        map.put("userIcon", R.drawable.ic_apps_black_24dp);
+        map.put("username", "Ricardo");
+        map.put("usertext", "This is a simple sample for SimpleAdapter");
+        list.add(map);
 
-        // определяем список и присваиваем ему адаптер
-        listView = findViewById(R.id.lvSimple);
-        listView.setAdapter(simpleAdapter);
+        return list;
     }
 }
