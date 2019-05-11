@@ -65,4 +65,9 @@ public class MainActivity extends AppCompatActivity {
     void saveData() {
         Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
     }
+
+    public void onBackPressed() {
+        // вызываем диалог
+        showDialog(DIALOG_EXIT);
+    }
 }
